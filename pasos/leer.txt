@@ -1,0 +1,43 @@
+1) ir a Kernel.php
+	comentar la linea 
+	\App\Http\Middleware\VerifyCsrfToken::class
+
+2) instalar jwt autenticacion por token json
+  ir al archivo composer.json propiedad require y añadir la propiedad
+  "firebase/php-jwt":"3.0.0"
+  ejecutar comando composer update
+
+
+3) crear carpeta Helpers en la carpeta app	
+crear archivo JwtAuth.php
+php artisan make:provider JwtAuthServiceProvider
+se encuentra en la carpeta providers
+
+4) cargar el provider en la configuracion del framework
+carpeta config/app.php array providers despues añadirle el alias en el array aliases
+
+5) crear middleware
+ php artisan make:middleware ApiAuthMiddleware
+
+ registrar el middleware en el archivo Kernel.php
+ 'api.auth'=>\App\Http\Middleware\ApiAuthMiddleware::class,
+
+ asignar el middleware a la ruta
+
+ 6) crear las carpetas images,users en storage/app
+ 	ir al archivo config/filesystems
+
+
+7) configurar cors
+
+pegar codigo en public/index.php
+
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Authorization");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+$method = $_SERVER['REQUEST_METHOD'];
+if($method == "OPTIONS") {
+	die();
+}
+
